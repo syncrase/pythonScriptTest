@@ -18,6 +18,7 @@ import math
 from random import randrange
 import pickle
 
+
 i=4#variable globale, appellée dans le code de la manière suivante : global i
 
 def table(nb, max=10):
@@ -528,5 +529,42 @@ def recup_objet():
 		
 		print(i)
 		print(j)
+
+from Personne import *
+def testClasse():
+	
+	p = Personne("taquet", "pierre", "France")
+
+	print(p.nom,p.prenom, p.objets_crees)
+	print(p)
+	p = Personne("taquet", "pierre", "labas")
+	p.nom = 'truc'
+	print(p.nom,p.prenom,p.objets_crees)
+	print(p.bonjour())
+	p.methode_de_classe()
+	p.methode_static()
+	print(dir(p))#Renvoie tous les attributs et les méthodes
+	print(p.__dict__)#Tous les objets possède cet attribut (dictionnaire)
+	print(p.__dict__["_prenom"])#comme tout dico
+	printdico(p.__dict__)#ou encore
+	
+	#Je peux le faire mais par convention je ne le fait pas
+	print(p._nom)
+	p.nom = 'interdit'
+	print(p._nom)
+	print(p._taille)
+	del p.nom
+	getattr(p, "nom") # Semblable à objet.nom
+	setattr(p, "nom", 'coucou') # = objet.nom = val ou objet.__setattr__("nom", val)
+	delattr(p, "nom") # = del objet.nom ou objet.__delattr__("nom")
+	hasattr(p, "nom") # Renvoie True si l'attribut "nom" existe, False sinon
+	
+def printdico(dico):
+	for key, value in dico.items():
+		print('{0} {1}'.format(key, value))
+		
+from AgentSpecial import *
+def testheritage():
+	a = AgentSpecial("007",'e222b')
 
 #

@@ -1,3 +1,16 @@
+def singleton(classe):#fait office de singleton
+	print('décorateur pour la classe {}'.format(classe))
+	instances={}#dictionnaire d'instances
+	def get_instance(*param, **param_nom):#Je veux récupérer L'instance de ma classe      classe,        , *param, **param_nom
+		if classe not in instances:#Si celle-ci n'apparaît pas dans ma liste d'instances contenant 1 instance !!!
+			print(type(classe),classe)
+			print(type(param))
+			print(type(param_nom))
+			instances[classe] = classe(*param, **param_nom)#J'appel le constructeur de la classe et stocke le résultat dans le dictionnaire    param[0], param[1], param[2]
+		return instances[classe]#
+	return get_instance
+
+@singleton
 class Personne:
 	"""Classe définissant une personne caractérisée par :
 	- son nom

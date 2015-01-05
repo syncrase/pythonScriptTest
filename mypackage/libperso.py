@@ -567,4 +567,82 @@ from AgentSpecial import *
 def testheritage():
 	a = AgentSpecial("007",'e222b')
 
+
+from RevStr import *
+def testrevstr():
+	s = RevStr('Salut')
+	print('yo')
+	for c in s:
+		print(c)
+		
+	
+def generateurtest():
+	""""""
+	#next(generator) ou generator.__next__() renvoient la valeur suivante
+	#iter() ou <str>.__iter__() renvoient l'itérateur d'une séquence
+	for truc in generateur():
+		print(truc)
+		
+	for nombre in intervalle(20,-4):
+		print(nombre)
+		
+	#exemple avec générateur
+	#Attention : impossible de surcharger un nom de variable avec celui d'une méthode.
+	generator = intervalle(10,30)
+	for nombre in generator:
+		print(nombre)
+		if nombre > 15:
+			generator.close()
+	
+	generator = intervalle_with_trigger(10,30)
+	for nombre in generator:
+		if nombre == 13:
+			#print('valeur = 13')
+			generator.send(21)
+		print(nombre, end=' - \n')
+	
+def generateur():
+	yield 1
+	yield 2.0
+	yield 'troie'
+	
+def intervalle(borne_inf, borne_sup):
+	"""Générateur parcourant la série des entiers entre borne_inf et borne_sup.
+	Note: borne_inf doit être inférieure à borne_sup"""
+	
+	if borne_inf > borne_sup :
+		borne_inf -= 1
+		while borne_inf > borne_sup:
+			yield borne_inf
+			borne_inf -= 1
+		
+	if borne_inf < borne_sup :
+		borne_inf += 1
+		while borne_inf < borne_sup:
+			yield borne_inf
+			borne_inf += 1
+	
+def intervalle_with_trigger(borne_inf, borne_sup):
+	"""Générateur parcourant la série des entiers entre borne_inf et borne_sup.
+	Notre générateur doit pouvoir "sauter" une certaine plage de nombres
+	en fonction d'une valeur qu'on lui donne pendant le parcours. La
+	valeur qu'on lui passe est la nouvelle valeur de borne_inf.
+	Note: borne_inf doit être inférieure à borne_sup"""
+	
+	while borne_inf < borne_sup:
+		borne_inf += 1
+		valeur_recue = (yield borne_inf)
+		#print('valeur reçue :',valeur_recue)
+		if valeur_recue is not None: # Notre générateur a reçu quelque chose
+			borne_inf = valeur_recue
+		#borne_inf += 1
+		
+def decorateurtest():
+
+
+@nom_du_decorateur
+def ma_fonction_decoree():
+
+
+
 #

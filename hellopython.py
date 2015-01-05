@@ -104,7 +104,12 @@ fonction_multiparametres_full(*list_param,pays='corée centrale', planete='jupit
 
 ###############################################################################################
 #testClasse()
-testheritage()
+#testheritage()
+
+#testrevstr()
+#generateurtest()
+
+decorateurtest()
 
 # On met le programme en pause pour éviter qu'il ne se referme (Windows)
 os.system("pause")#Apparaitra "Appuyer sur une touche pour continuer..."

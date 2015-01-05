@@ -704,6 +704,10 @@ def decorateurtest2():
 	except Exception:
 		print('Le décorateur de classe ne fonctionne pas avec singleton')
 	try:
+		ma_fonction_dont_je_souhaite_controler_les_types_des_parametres(1,2)
+	except TypeError:
+		print('Cette méthode attends 2 paramètres entiers')
+	try:
 		ma_fonction_dont_je_souhaite_controler_les_types_des_parametres(1,2,3)
 	except TypeError:
 		print('Cette méthode attends 2 paramètres entiers')

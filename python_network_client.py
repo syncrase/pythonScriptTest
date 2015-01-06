@@ -10,10 +10,11 @@ print(msg_recue.decode())
 
 msg_envoye=b""
 msg_recue=b""
-while msg_envoye != b"fin":
-	msg_envoye = input('Que veux-tu envoyer au serveur?')
+while msg_recue != b"serverclosing":#j'attend que mon serveur me renvoie serverclosing avant de quitter la boucle
+	msg_envoye = input('Que veux-tu envoyer au serveur?').encode()
 	#print(msg_recue.decode())
-	connexion_avec_serveur.send(msg_envoye.encode())
+	connexion_avec_serveur.send(msg_envoye)
+	#J'attend la réponse du serveur avant de continuer
 	while msg_recue != b"ok":
 		
 		msg_recue = connexion_avec_serveur.recv(1024)

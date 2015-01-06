@@ -56,12 +56,30 @@ while server_is_working:
 	else:#s'il n'y a pas eu d'erreur
 		#parcours de la liste des clients (sockets) verbeux
 		for client in clients_a_lire :
-			msg_recu = client.recv(1024)
-			print("Reçu {}".format(msg_recu.decode()))#Si le message contient des caractères spéciaux, l'affichage de la séquence en byte peut planter => decoder
-			client.send(b"ok")
-			if msg_recu == b"fin" :#si le client demande d'interrompre la connexion, on sort de la boucle infinie
-				client.send(b"serverclosing")#Permet au client de sortir de la boucle
-				server_is_working = False
+			try :#Si jamais le client s'est éteint de son côté sans que l'on soit au courant
+				msg_recu = client.recv(1024)
+				print("Reçu {}".format(msg_recu.decode()))#Si le message contient des caractères spéciaux, l'affichage de la séquence en byte peut planter => decoder
+				
+				if msg_recu == b"fin" :#si le client demande d'interrompre la connexion, on sort de la boucle infinie
+					client.send(b"connectionclosing")#Permet au client de sortir de la boucle
+					client.close()
+					print('Connection interrompue par l\'utilisateur')
+					#print('Client socket : {}'.format(client))
+					clients_connectes.remove(client)
+				elif msg_recu == b"serverclosing" :
+					
+					print('Server closing by : {}'.format(client))
+					for client in clients_connectes :
+						client.send(b"connectionclosing")#ne sert à rien, la client est bloqué sur la méthode input
+					server_is_working = False
+				else :
+					client.send(b"ok")
+					#print('Envoie de ok à l\'utilisateur')
+			except ConnectionAbortedError :#Dans ce cas la connexion est perdue, on ferme notre socket et on supprime le client de notre liste
+				print('This client {}\nhas been unfortunetly disconnected'.format(client))
+				client.close()
+				clients_connectes.remove(client)
+				pass
 
 #fermeture des connexions individuelles
 for client in clients_connectes :

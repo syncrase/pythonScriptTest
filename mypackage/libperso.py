@@ -1,8 +1,4 @@
-#!/usr/bin/python3.4
-# -*-coding:UTF-8 -*
-#Author : Pierre TAQUET
-#Description : This file contains fonctions to be called.
-#Creation date : 31/12/2014
+
 
 """
 	Au moment d'importer votre module, Python va lire (ou créer si il n'existe pas) un fichier .pyc. 
